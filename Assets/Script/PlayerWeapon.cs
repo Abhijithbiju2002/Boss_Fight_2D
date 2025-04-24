@@ -19,11 +19,18 @@ public class PlayerWeapon : MonoBehaviour
     }
     void Update()
     {
+        PlayerAttack();
+    }
+    void PlayerAttack()
+    {
         if (timeBetweenAttack <= 0)
         {
             if (Input.GetMouseButtonDown(0))
             {
                 bool isRunning = Mathf.Abs(rb.velocity.x) > 0.1f;
+                animator.ResetTrigger("RunAttack");
+                animator.ResetTrigger("IdleAttack");
+
                 if (isRunning)
                 {
                     animator.SetTrigger("RunAttack");
@@ -41,6 +48,8 @@ public class PlayerWeapon : MonoBehaviour
             else if (Input.GetMouseButtonDown(1))
             {
                 bool isRunning = Mathf.Abs(rb.velocity.x) > 0.1f;
+                animator.ResetTrigger("Attacker");
+
                 if (isRunning)
                 {
                     animator.SetTrigger("Attacker");
@@ -48,8 +57,11 @@ public class PlayerWeapon : MonoBehaviour
                 }
                 else
                 {
+
                     attackRange = 0.35f;
                 }
+                Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attakPos.position, attackRange, EnemyLayer);
+                timeBetweenAttack = startbetweenAttack;
 
             }
             //then u can attack
@@ -58,6 +70,13 @@ public class PlayerWeapon : MonoBehaviour
         else
         {
             timeBetweenAttack -= Time.deltaTime;
+
+            if (!Input.GetMouseButtonDown(0) && !Input.GetMouseButtonDown(1))
+            {
+                animator.ResetTrigger("RunAttack");
+                animator.ResetTrigger("IdleAttack");
+                animator.ResetTrigger("Attacker");
+            }
         }
 
     }
