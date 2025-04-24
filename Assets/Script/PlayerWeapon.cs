@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class PlayerWeapon : MonoBehaviour
 {
+    public int attack_dmg = 25;
     private float timeBetweenAttack;
     [SerializeField] private float startbetweenAttack = 0.05f;
     [SerializeField] Transform attakPos;
@@ -25,6 +26,7 @@ public class PlayerWeapon : MonoBehaviour
     {
         if (timeBetweenAttack <= 0)
         {
+
             if (Input.GetMouseButtonDown(0))
             {
                 bool isRunning = Mathf.Abs(rb.velocity.x) > 0.1f;
@@ -34,16 +36,26 @@ public class PlayerWeapon : MonoBehaviour
                 if (isRunning)
                 {
                     animator.SetTrigger("RunAttack");
-                    attackRange = 0.35f;
+                    attackRange = 0.5f;
                 }
                 else
                 {
                     animator.SetTrigger("IdleAttack");
-                    attackRange = 0.35f;
+                    attackRange = 0.5f;
 
                 }
                 Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attakPos.position, attackRange, EnemyLayer);
+
+                foreach (Collider2D enemy in enemiesToDamage)
+                {
+                    BossHealth boss_health = enemy.GetComponent<BossHealth>();
+                    if (boss_health != null)
+                    {
+                        boss_health.BossTakeDamage(attack_dmg);
+                    }
+                }
                 timeBetweenAttack = startbetweenAttack;
+
             }
             else if (Input.GetMouseButtonDown(1))
             {
@@ -53,14 +65,24 @@ public class PlayerWeapon : MonoBehaviour
                 if (isRunning)
                 {
                     animator.SetTrigger("Attacker");
-                    attackRange = 0.5f;
+                    attackRange = 1f;
                 }
                 else
                 {
 
-                    attackRange = 0.35f;
+                    attackRange = 0.5f;
                 }
                 Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attakPos.position, attackRange, EnemyLayer);
+                foreach (Collider2D enemy in enemiesToDamage)
+                {
+                    BossHealth boss_health = enemy.GetComponent<BossHealth>();
+                    if (boss_health != null)
+                    {
+                        boss_health.BossTakeDamage(attack_dmg);
+                    }
+                }
+
+
                 timeBetweenAttack = startbetweenAttack;
 
             }

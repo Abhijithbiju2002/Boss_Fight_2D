@@ -28,7 +28,7 @@ public class PlayerHealth : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Boss"))
         {
-            TakeDamage(health);
+            TakeDamage(20);
         }
     }
     void Die()
