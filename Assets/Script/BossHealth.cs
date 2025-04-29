@@ -6,20 +6,27 @@ public class BossHealth : MonoBehaviour
     public int boss_health = 500;
 
     [SerializeField] Vector2 boss_death_kick = new Vector2(4f, 4f);
+    [SerializeField] Material hitFlash;
+    [SerializeField] float duration;
 
     Animator animator;
     Rigidbody2D rb;
-
-
+    SpriteRenderer spriteRenderer;
+    Material originalMaterial;
+    private Coroutine flashRoutine;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        originalMaterial = spriteRenderer.material;
     }
     public void BossTakeDamage(int damage)
     {
+        Flash();
         boss_health -= damage;
+
         if (boss_health <= 0)
         {
             BossDeath();
@@ -45,7 +52,22 @@ public class BossHealth : MonoBehaviour
             c.enabled = false;
         }
     }
+    void Flash()
+    {
+        if (flashRoutine != null)
+        {
+            StopCoroutine(flashRoutine);
+        }
+        flashRoutine = StartCoroutine(FlashRoutine());
+    }
+    private IEnumerator FlashRoutine()
+    {
+        spriteRenderer.material = hitFlash;
+        yield return new WaitForSeconds(duration);
 
+        spriteRenderer.material = originalMaterial;
+        flashRoutine = null;
+    }
 
 
 }

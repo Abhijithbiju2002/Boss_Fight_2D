@@ -9,6 +9,8 @@ public class PlayerHealth : MonoBehaviour
     Rigidbody2D Rigidbody;
     [SerializeField] Vector2 deathKick = new Vector2(2f, 2f);
 
+
+
     private void Start()
     {
         animator = GetComponent<Animator>();

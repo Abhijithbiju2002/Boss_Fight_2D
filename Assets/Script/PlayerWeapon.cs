@@ -10,6 +10,7 @@ public class PlayerWeapon : MonoBehaviour
     [SerializeField] LayerMask EnemyLayer;
 
 
+
     private Animator animator;
     private Rigidbody2D rb;
 
@@ -30,18 +31,18 @@ public class PlayerWeapon : MonoBehaviour
             if (Input.GetMouseButtonDown(0))
             {
                 bool isRunning = Mathf.Abs(rb.velocity.x) > 0.1f;
-                animator.ResetTrigger("RunAttack");
+                animator.ResetTrigger("Attacker");
                 animator.ResetTrigger("IdleAttack");
 
                 if (isRunning)
                 {
-                    animator.SetTrigger("RunAttack");
-                    attackRange = 0.5f;
+                    animator.SetTrigger("Attacker");
+                    //attackRange = 0.5f;
                 }
                 else
                 {
                     animator.SetTrigger("IdleAttack");
-                    attackRange = 0.5f;
+                    // attackRange = 0.5f;
 
                 }
                 Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attakPos.position, attackRange, EnemyLayer);
@@ -57,35 +58,35 @@ public class PlayerWeapon : MonoBehaviour
                 timeBetweenAttack = startbetweenAttack;
 
             }
-            else if (Input.GetMouseButtonDown(1))
-            {
-                bool isRunning = Mathf.Abs(rb.velocity.x) > 0.1f;
-                animator.ResetTrigger("Attacker");
+            //else if (Input.GetMouseButtonDown(1))
+            //{
+            //    bool isRunning = Mathf.Abs(rb.velocity.x) > 0.1f;
+            //    animator.ResetTrigger("Attacker");
 
-                if (isRunning)
-                {
-                    animator.SetTrigger("Attacker");
-                    attackRange = 1f;
-                }
-                else
-                {
+            //    if (isRunning)
+            //    {
+            //        animator.SetTrigger("Attacker");
+            //        attackRange = 1f;
+            //    }
+            //    else
+            //    {
 
-                    attackRange = 0.5f;
-                }
-                Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attakPos.position, attackRange, EnemyLayer);
-                foreach (Collider2D enemy in enemiesToDamage)
-                {
-                    BossHealth boss_health = enemy.GetComponent<BossHealth>();
-                    if (boss_health != null)
-                    {
-                        boss_health.BossTakeDamage(attack_dmg);
-                    }
-                }
+            //        attackRange = 0.5f;
+            //    }
+            //    Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attakPos.position, attackRange, EnemyLayer);
+            //    foreach (Collider2D enemy in enemiesToDamage)
+            //    {
+            //        BossHealth boss_health = enemy.GetComponent<BossHealth>();
+            //        if (boss_health != null)
+            //        {
+            //            boss_health.BossTakeDamage(attack_dmg);
+            //        }
+            //    }
 
 
-                timeBetweenAttack = startbetweenAttack;
+            //timeBetweenAttack = startbetweenAttack;
 
-            }
+            //}
             //then u can attack
 
         }
@@ -96,7 +97,7 @@ public class PlayerWeapon : MonoBehaviour
             if (!Input.GetMouseButtonDown(0) && !Input.GetMouseButtonDown(1))
             {
                 animator.ResetTrigger("RunAttack");
-                animator.ResetTrigger("IdleAttack");
+                // animator.ResetTrigger("IdleAttack");
                 animator.ResetTrigger("Attacker");
             }
         }
