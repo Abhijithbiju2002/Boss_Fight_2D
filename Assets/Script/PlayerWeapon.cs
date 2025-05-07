@@ -10,7 +10,8 @@ public class PlayerWeapon : MonoBehaviour
     [SerializeField] LayerMask EnemyLayer;
 
 
-
+    public BossHealth boss_health = null;
+    public Collider2D[] enemiesToDamage;
     private Animator animator;
     private Rigidbody2D rb;
 
@@ -18,6 +19,7 @@ public class PlayerWeapon : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
+
     }
     void Update()
     {
@@ -45,11 +47,11 @@ public class PlayerWeapon : MonoBehaviour
                     // attackRange = 0.5f;
 
                 }
-                Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attakPos.position, attackRange, EnemyLayer);
+                enemiesToDamage = Physics2D.OverlapCircleAll(attakPos.position, attackRange, EnemyLayer);
 
                 foreach (Collider2D enemy in enemiesToDamage)
                 {
-                    BossHealth boss_health = enemy.GetComponent<BossHealth>();
+                    boss_health = enemy.GetComponent<BossHealth>();
                     if (boss_health != null)
                     {
                         boss_health.BossTakeDamage(attack_dmg);
