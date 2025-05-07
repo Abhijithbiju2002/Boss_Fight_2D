@@ -3,7 +3,7 @@ using UnityEngine;
 public class BossWeapon : MonoBehaviour
 {
     public int attack_damage = 20;
-    public float attackCoolDown = 1f;
+    public float attackCoolDown = 1.75f;
     BossController boss;
     // public int engrandAttack = 40;
 
@@ -47,7 +47,7 @@ public class BossWeapon : MonoBehaviour
             }
 
         }
-        attackCoolDown = 1f;
+        attackCoolDown = 1.75f;
 
 
     }

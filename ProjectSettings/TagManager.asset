@@ -15,7 +15,7 @@ TagManager:
   - UI
   - Ground
   - Enemy
-  - 
+  - DeadBoss
   - 
   - 
   - 
@@ -42,4 +42,10 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Player
+    uniqueID: 3492773645
+    locked: 0
+  - name: Dead
+    uniqueID: 1013387621
     locked: 0
