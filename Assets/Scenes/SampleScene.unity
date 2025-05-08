@@ -271,7 +271,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ab34a2cea0ddb849bae95ae3dba0c98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 10
+  health: 5000
   deathKick: {x: 6, y: 10}
 --- !u!95 &137418895
 Animator:
@@ -1045,9 +1045,9 @@ GameObject:
   - component: {fileID: 1941794493}
   - component: {fileID: 1941794497}
   - component: {fileID: 1941794491}
-  - component: {fileID: 1941794499}
   - component: {fileID: 1941794496}
   - component: {fileID: 1941794498}
+  - component: {fileID: 1941794499}
   - component: {fileID: 1941794500}
   m_Layer: 7
   m_Name: Boss
@@ -1217,11 +1217,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5a51ae6888d831409f85f2c1add58ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boss_health: 141
-  boss_death_kick: {x: 100, y: 5}
+  boss_health: 500
+  boss_death_kick: {x: 4, y: 4}
   hitFlash: {fileID: 2100000, guid: 357c279a0085d654882b6551958494b9, type: 2}
   duration: 0.02
-  attackPush: {x: 25, y: 58.6}
 --- !u!70 &1941794500
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

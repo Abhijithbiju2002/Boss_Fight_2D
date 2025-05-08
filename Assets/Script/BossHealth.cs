@@ -8,7 +8,6 @@ public class BossHealth : MonoBehaviour
     [SerializeField] Vector2 boss_death_kick = new Vector2(4f, 4f);
     [SerializeField] Material hitFlash;
     [SerializeField] float duration;
-    [SerializeField] Vector2 attackPush = new Vector2(1.5f, 0.5f);
 
     Animator animator;
     Rigidbody2D rb;
@@ -25,9 +24,7 @@ public class BossHealth : MonoBehaviour
     }
     public void BossTakeDamage(int damage)
     {
-
         Flash();
-        rb.AddForce(attackPush, ForceMode2D.Impulse);
         boss_health -= damage;
 
         if (boss_health <= 0)
@@ -39,11 +36,22 @@ public class BossHealth : MonoBehaviour
     {
         animator.SetTrigger("Death");
         GetComponent<BossWeapon>().enabled = false;
-        StartCoroutine(DeathKickWithDelay());
-        gameObject.layer = LayerMask.NameToLayer("DeadBoss");
+        rb.velocity = Vector2.zero;
+        rb.AddForce(boss_death_kick, ForceMode2D.Impulse);
 
+        rb.bodyType = RigidbodyType2D.Kinematic;
+        rb.simulated = false; // stops all physics interactions
+
+        StartCoroutine(DisableColliderAfterDelay());
     }
-
+    IEnumerator DisableColliderAfterDelay()
+    {
+        yield return new WaitForSeconds(1f); // wait for death animation
+        foreach (Collider2D c in GetComponentsInChildren<Collider2D>())
+        {
+            c.enabled = false;
+        }
+    }
     void Flash()
     {
         if (flashRoutine != null)
@@ -52,13 +60,6 @@ public class BossHealth : MonoBehaviour
         }
         flashRoutine = StartCoroutine(FlashRoutine());
     }
-    IEnumerator DeathKickWithDelay()
-    {
-        yield return new WaitForSeconds(0.01f);
-        rb.velocity = Vector2.zero;
-        rb.AddForce(boss_death_kick, ForceMode2D.Impulse);
-    }
-
     private IEnumerator FlashRoutine()
     {
         spriteRenderer.material = hitFlash;
