@@ -271,7 +271,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ab34a2cea0ddb849bae95ae3dba0c98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 20
+  health: 5000
   deathKick: {x: 6, y: 10}
 --- !u!95 &137418895
 Animator:
@@ -341,9 +341,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87dc9e04422095b49b571c7ba4b0e909, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startbetweenAttack: 0.05
+  attack_dmg: 25
+  startbetweenAttack: 0.3
   attakPos: {fileID: 490123838}
-  attackRange: 0.35
+  attackRange: 0.75
   EnemyLayer:
     serializedVersion: 2
     m_Bits: 128
@@ -1044,16 +1045,17 @@ GameObject:
   - component: {fileID: 1941794493}
   - component: {fileID: 1941794497}
   - component: {fileID: 1941794491}
-  - component: {fileID: 1941794492}
   - component: {fileID: 1941794496}
   - component: {fileID: 1941794498}
+  - component: {fileID: 1941794499}
+  - component: {fileID: 1941794500}
   m_Layer: 7
   m_Name: Boss
   m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!95 &1941794491
 Animator:
   serializedVersion: 5
@@ -1075,51 +1077,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!61 &1941794492
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1941794490}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.07066703, y: -0.8184073}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 12.5, y: 12.5}
-    newSize: {x: 12.5, y: 12.5}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.8286495, y: 2.5150461}
-  m_EdgeRadius: 0
 --- !u!212 &1941794493
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1243,11 +1200,62 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attack_damage: 20
   attackCoolDown: 1
-  attackOffset: {x: 2, y: 0, z: 0}
-  attackRange: 3
+  attackOffset: {x: 1.54, y: 0, z: 0}
+  attackRange: 2
   attackMask:
     serializedVersion: 2
     m_Bits: 8
+--- !u!114 &1941794499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1941794490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5a51ae6888d831409f85f2c1add58ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boss_health: 500
+  boss_death_kick: {x: 4, y: 4}
+  hitFlash: {fileID: 2100000, guid: 357c279a0085d654882b6551958494b9, type: 2}
+  duration: 0.02
+--- !u!70 &1941794500
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1941794490}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.03758335, y: -0.79997194}
+  m_Size: {x: 0.7926178, y: 2.6428907}
+  m_Direction: 0
 --- !u!1 &1957687698
 GameObject:
   m_ObjectHideFlags: 0
